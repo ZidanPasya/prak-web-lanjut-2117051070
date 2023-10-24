@@ -8,25 +8,40 @@
 </head>
 <body>
     <div class="container mt-5" style="background-color: aqua;">
+        <?php if (session('validation')) : ?>
+            <div>
+                <ul>
+                    <?php foreach (session('validation')->getErrors() as $error) : ?>
+                        <li><?= esc($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        <?php endif ?>
         <form action="<?= base_url('/user/store') ?>" method="POST">
             <div class="mb-3 pt-4 row">
                 <label for="nama" class="col-sm-1 ms-5 col-form-label">Nama</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nama" name="nama" required>
+                    <input type="text" class="form-control" id="nama" name="nama">
                 </div>
             </div>
             <div class="mb-3 mt-3 row">
                 <label for="npm" class="col-sm-1 ms-5 col-form-label">NPM</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="npm" name="npm" required>
+                    <input type="text" class="form-control" id="npm" name="npm">
                 </div>
             </div>
             <div class="mb-3 mt-3 row">
-                <label for="kelas" class="col-sm-1 ms-5 col-form-label">Kelas</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="kelas" name="kelas" required>
+                    <label for="kelas" class="col-sm-1 ms-5 col-form-label">Kelas</label>
+                    <div class="col-sm-9">
+                        <select class="form-select form-select-md mb-3" aria-label=".form-select-lg example" name="kelas" required>
+                            <?php foreach($kelas as $item){ ?>
+                                <option value="<?= $item['id'] ?>">
+                                    <?= $item['nama_kelas'] ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
                 </div>
-            </div>
             <button type="submit" name="submit" class="btn btn-primary mb-3 ms-5">Kirim</button>
         </form>
     </div>
